@@ -1,0 +1,16 @@
+#db
+db.sqlite3
+
+#debugging
+geckodriver.log
+
+#virtual env
+/virtualenv
+
+#pycache files
+__pycache__
+*.pyc
+
+
+#Secret Keys
+settings.py
