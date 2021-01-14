@@ -28,10 +28,9 @@ class NewVistiorTest(unittest.TestCase):
         inputbox.send_keys('Keys.ENTER')
         time.sleep(1)
         table = self.browser.find_element_by_id('id_list_table')
-        rows = table.find_element_by_tag_name('tr')
+        rows = table.find_elements_by_tag_name('tr')
         self.assertTrue(
-                any(row.text == '1: Buy cookies' for row in rows)
-        )
+                any(row.text == '1: Buy cookies' for row in rows), "New to-do item did not appear in table")
         #Text box for input remains. User types another item: "Send cookies for class party"
         self.fail('Finish the test!')
         #Page updates again, and both items show on to-do list
