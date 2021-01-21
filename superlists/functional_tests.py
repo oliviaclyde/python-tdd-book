@@ -20,23 +20,27 @@ class NewVistiorTest(unittest.TestCase):
         self.assertIn('To-Do', header_text)
         #User enters to-do item
         inputbox = self.browser.find_element_by_id('id_new_item')
-
         self.assertEqual(inputbox.get_attribute('placeholder'), 'Enter a to-do item')
         #User types "buy cookies" into text box
         inputbox.send_keys('Buy cookies')
         #User hits enter, pages will update, page will list "1: buy cookies" as an item in a to-do list
-        inputbox.send_keys('Keys.ENTER')
-        time.sleep(1)
+        inputbox.send_keys(Keys.ENTER)
+        time.sleep(3)
         table = self.browser.find_element_by_id('id_list_table')
         rows = table.find_elements_by_tag_name('tr')
-        self.assertTrue(
-                any(row.text == '1: Buy cookies' for row in rows), "New to-do item did not appear in table")
+        
         #Text box for input remains. User types another item: "Send cookies for class party"
-        self.fail('Finish the test!')
+        inputbox = self.browser.find_element_by_id('id_new_item')
+        inputbox.send_keys('Send cookies for class party')
+        inputbox.send_keys(Keys.ENTER)
+        time.sleep(2)
         #Page updates again, and both items show on to-do list
-
+        table = self.browser.find_element_by_id('id_list_table')
+        rows = table.find_elements_by_tag_name('tr')
+        self.assertIn('1: Buy cookies', [row.text for row in rows])
+        self.assertIn('2: Send cookies for class party', [row.text for row in rows])
         #User tests if site will remember the items entered. Site provides unique URL with some text explanation
-
+        self.fail('Finish the test!')
         #User visits url - list is there
 
 if __name__ == '__main__':
